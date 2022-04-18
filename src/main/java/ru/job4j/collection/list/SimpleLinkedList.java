@@ -30,11 +30,10 @@ public class SimpleLinkedList<E> implements List<E> {
     public E get(int index) {
         Node<E> rsl = first;
         Objects.checkIndex(index, size);
-        if (index != 0) {
-            for (int i = 1; i <= index; i++) {
-                rsl = rsl.getNext();
-            }
+        for (int i = 0; i < index; i++) {
+            rsl = rsl.getNext();
         }
+
         return rsl.getItem();
     }
 

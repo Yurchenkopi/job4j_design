@@ -3,7 +3,9 @@ package ru.job4j.collection.list;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -24,6 +26,30 @@ public class SimpleLinkedListTest {
         list.add(1);
         list.add(2);
         list.get(2);
+    }
+
+    @Test(expected = ConcurrentModificationException.class)
+    public void whenAddIterAndTryModify() {
+        List<Integer> list = new SimpleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        Iterator<Integer> it = list.iterator();
+        it.next();
+        list.add(3);
+        it.next();
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void whenAddIterAndNoMoreElements() {
+        List<Integer> list = new SimpleLinkedList<>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        Iterator<Integer> it = list.iterator();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
     }
 
     @Test
