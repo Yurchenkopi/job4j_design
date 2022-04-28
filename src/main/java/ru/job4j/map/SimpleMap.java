@@ -20,7 +20,7 @@ public class SimpleMap<K, V> implements Map<K, V> {
     @Override
     public boolean put(K key, V value) {
         boolean rsl = false;
-        if (count == capacity) {
+        if ((float) count / capacity >= LOAD_FACTOR) {
             expand();
         }
         int index = indexFor(hash(key.hashCode()));
@@ -42,27 +42,36 @@ public class SimpleMap<K, V> implements Map<K, V> {
     }
 
     private int indexFor(int hash) {
-        return hash % (capacity - 1);
+        return hash & (capacity - 1);
     }
 
     private void expand() {
-        capacity = capacity * 2;
-        MapEntry<K, V>[] temp = new MapEntry[capacity];
-        for (MapEntry<K, V> me : table) {
-            int index = indexFor(hash(me.key.hashCode()));
-            temp[index] = me;
+        MapEntry<K, V>[] temp = new MapEntry[capacity * 2];
+        Iterator<K> it = iterator();
+        while (it.hasNext()) {
+            K key = it.next();
+            V value = get(key);
+            int index = indexFor(hash(key.hashCode()));
+            temp[index] = new MapEntry<>(key, value);
         }
+        capacity = capacity * 2;
         table = temp;
     }
 
     @Override
     public V get(K key) {
-        return table[indexFor(hash(key.hashCode()))].value;
+        int index = indexFor(hash(key.hashCode()));
+        return table[index] == null ? null : table[index].value;
     }
 
     @Override
     public boolean remove(K key) {
-        return false;
+        int index = indexFor(hash(key.hashCode()));
+        if (table[index] != null && table[index].key != null) {
+            table[index].key = null;
+            table[index].value = null;
+        }
+        return table[index] != null && table[index].key == null;
     }
 
     @Override
@@ -76,10 +85,10 @@ public class SimpleMap<K, V> implements Map<K, V> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (index < capacity && table[index] == null) {
+                while (index != capacity && table[index] == null) {
                     index++;
                 }
-                return index < capacity;
+                return index != capacity;
             }
 
             @Override
@@ -101,7 +110,5 @@ public class SimpleMap<K, V> implements Map<K, V> {
             this.key = key;
             this.value = value;
         }
-
     }
-
 }

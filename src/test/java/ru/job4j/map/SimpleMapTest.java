@@ -32,6 +32,33 @@ public class SimpleMapTest {
     }
 
     @Test
+    public void whenGetNullKey() {
+        SimpleMap<Integer, String> map = new SimpleMap<>();
+        map.put(1, "Apple");
+        assertNull(map.get(0));
+    }
+
+    @Test
+    public void whenRemove() {
+        SimpleMap<Integer, String> map = new SimpleMap<>();
+        map.put(1, "Apple");
+        map.put(2, "Orange");
+        map.put(3, "Grape");
+        assertTrue(map.remove(3));
+        assertNull(map.get(3));
+        assertTrue(map.remove(1));
+        assertNull(map.get(1));
+        assertTrue(map.remove(2));
+        assertNull(map.get(2));
+    }
+
+    @Test
+    public void whenRemoveAndMapIsNull() {
+        SimpleMap<Integer, String> map = new SimpleMap<>();
+        assertFalse(map.remove(10));
+    }
+
+    @Test
     public void whenGetIterator() {
         SimpleMap<Integer, String> map = new SimpleMap<>();
         map.put(1, "Apple");
@@ -82,13 +109,13 @@ public class SimpleMapTest {
         map.put(1, "Apple");
         map.put(2, "Orange");
         map.put(3, "Grape");
-        map.put(4, "Apple");
-        map.put(5, "Orange");
-        map.put(6, "Grape");
-        map.put(7, "Apple");
-        map.put(8, "Orange");
+        map.put(4, "one more Apple");
+        map.put(5, "one more Orange");
+        map.put(6, "one more Grape");
         assertThat(map.capacity(), is(8));
-        map.put(9, "Grape");
+        map.put(7, "Banana");
         assertThat(map.capacity(), is(16));
+        map.put(8, "Apricot");
+        map.put(9, "Mango");
     }
 }
