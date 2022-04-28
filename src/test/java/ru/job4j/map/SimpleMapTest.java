@@ -79,7 +79,7 @@ public class SimpleMapTest {
     }
 
     @Test (expected = NoSuchElementException.class)
-    public void whenGetIteratorAndNoMoreElements() {
+    public void whenGetIteratorAndNoMoreElements()  {
         SimpleMap<Integer, String> map = new SimpleMap<>();
         map.put(1, "Apple");
         map.put(5, "Orange");
