@@ -37,7 +37,11 @@ public class HashTesting {
     }
 
     public static int hash(Object key) {
-        int h;
-        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
+        int rsl = 0;
+        if (key != null) {
+            int h = key.hashCode();
+            rsl = (h) ^ (h >>> 16);
+        }
+        return rsl;
     }
 }
