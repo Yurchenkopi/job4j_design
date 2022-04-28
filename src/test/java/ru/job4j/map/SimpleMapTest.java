@@ -39,6 +39,13 @@ public class SimpleMapTest {
     }
 
     @Test
+    public void whenGetAnotherKeyWithSimilarHash() {
+        SimpleMap<Integer, String> map = new SimpleMap<>();
+        map.put(1, "Apple");
+        assertNull(map.get(9));
+    }
+
+    @Test
     public void whenRemove() {
         SimpleMap<Integer, String> map = new SimpleMap<>();
         map.put(1, "Apple");
@@ -50,6 +57,13 @@ public class SimpleMapTest {
         assertNull(map.get(1));
         assertTrue(map.remove(2));
         assertNull(map.get(2));
+    }
+
+    @Test
+    public void whenRemoveAnotherKeyWithSimilarHash() {
+        SimpleMap<Integer, String> map = new SimpleMap<>();
+        map.put(1, "Apple");
+        assertFalse(map.remove(9));
     }
 
     @Test
