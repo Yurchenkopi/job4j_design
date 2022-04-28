@@ -1,5 +1,7 @@
 package ru.job4j.collection.hash;
 
+import ru.job4j.map.SimpleMap;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,17 @@ public class HashTesting {
         User u1 = new User("Ivan", 1, new MyCalendar(5, 5, 1990));
         User u2 = new User("Ivan", 1, new MyCalendar(5, 5, 1990));
         Map<User, Object> map = new HashMap<>();
+        Map<Integer, String> map2 = new HashMap<>();
+        map2.put(1, "Apple");
+        map2.put(5, "Orange");
+        map2.put(10, "Grape");
+        map2.put(11, "Orange");
+        map2.put(23, "Grape");
+        map2.put(54, "Orange");
+        map2.put(105, "Grape");
+        for (Integer i : map2.keySet()) {
+            System.out.println(i);
+        }
         map.put(u1, new Object());
         map.put(u2, new Object());
         map.keySet()
