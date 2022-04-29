@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public interface Tree<E> {
 
     boolean add(E parent, E child);
+
+    boolean isBinary();
 
     Optional<Node<E>> findBy(E value);
 
