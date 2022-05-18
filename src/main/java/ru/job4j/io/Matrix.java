@@ -1,9 +1,12 @@
 package ru.job4j.io;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Optional;
 
-public class Matrix  {
+public class Matrix {
     public static int[][] multiple(int size) {
         int[][] array = new int[size][size];
         for (int i = 0; i < array.length; i++) {
@@ -23,7 +26,7 @@ public class Matrix  {
                 out.write(System.lineSeparator().getBytes());
             }
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
