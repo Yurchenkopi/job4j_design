@@ -21,9 +21,10 @@ public class Config {
             for (String s : read.lines().toList()) {
                 if (!accept.matcher(s).find()) {
                     String[] str = s.split("=", 2);
-                    if (str.length == 2 && !str[0].equals("") && !str[1].equals("")) {
+                    if (str.length == 2 && !str[0].isEmpty() && !str[1].isEmpty()) {
                         values.put(str[0], str[1]);
-                    } else {
+                    }
+                    if (str.length == 1 || str[0].isEmpty() || str[1].isEmpty()) {
                         throw new IllegalArgumentException("Template error");
                     }
                 }
