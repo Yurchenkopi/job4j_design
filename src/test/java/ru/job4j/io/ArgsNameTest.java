@@ -33,6 +33,31 @@ public class ArgsNameTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void whenWrongSomeArgument() {
-        ArgsName jvm = ArgsName.of(new String[] {"-enconding=UTF-8", "-Xmx="});
+        ArgsName jvm = ArgsName.of(new String[] {"-encoding=UTF-8", "-Xmx="});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenEmptyKey() {
+        ArgsName jvm = ArgsName.of(new String[] {"-=UTF-8", "-Xmx=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongKeyPrefix() {
+        ArgsName jvm = ArgsName.of(new String[] {"encoding=UTF-8", "-Xmx=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenWrongTemplate() {
+        ArgsName jvm = ArgsName.of(new String[] {"-encodingUTF-8", "-Xmx=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenEmptyKeyAndEmptyValue() {
+        ArgsName jvm = ArgsName.of(new String[] {"-=", "-Xmx=512"});
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void whenEmptyStringArray() {
+        ArgsName jvm = ArgsName.of(new String[] {});
     }
 }

@@ -2,10 +2,23 @@ package ru.job4j.io;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class ArgsName {
 
     private final Map<String, String> values = new HashMap<>();
+
+    private void validate(String[] args) {
+        if (args.length == 0) {
+            throw new IllegalArgumentException("Empty parameters");
+        }
+        for (String s : args) {
+            Pattern pattern = Pattern.compile("^-.+=.+$");
+            if (!pattern.matcher(s).find()) {
+                throw new IllegalArgumentException("Template error");
+            }
+        }
+    }
 
     public String get(String key) {
         if (!values.containsKey(key)) {
@@ -15,16 +28,12 @@ public class ArgsName {
     }
 
     private void parse(String[] args) {
+        validate(args);
         for (String s : args) {
             String[] str = s.split("=", 2);
-            if (str[0].charAt(0) == '-') {
-                StringBuilder sb = new StringBuilder(str[0]);
-                sb.delete(0, 1);
-                str[0] = sb.toString();
-            }
-            if (str.length == 1 || str[0].isEmpty() || str[1].isEmpty()) {
-                throw new IllegalArgumentException("Template error");
-            }
+            StringBuilder sb = new StringBuilder(str[0]);
+            sb.delete(0, 1);
+            str[0] = sb.toString();
             values.put(str[0], str[1]);
         }
     }
