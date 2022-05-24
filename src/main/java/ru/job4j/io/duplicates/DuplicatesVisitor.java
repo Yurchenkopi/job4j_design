@@ -27,14 +27,13 @@ public class DuplicatesVisitor extends SimpleFileVisitor<Path> {
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
-        long size = file.toFile().length();
-        String nameOfFilePath = file.getFileName().toString();
+        FileProperty ex = new FileProperty(file.toFile().length(), file.getFileName().toString());
 
-        fp.putIfAbsent(new FileProperty(size, nameOfFilePath), new ArrayList<>());
-        fp.computeIfPresent(new FileProperty(size, nameOfFilePath), (k, v) -> {
-                                                                                 v.add(file.toString());
-                                                                                 return v;
-                                                                                });
+        fp.putIfAbsent(ex, new ArrayList<>());
+        fp.computeIfPresent(ex, (k, v) -> {
+                                            v.add(file.toString());
+                                            return v;
+                                            });
         return super.visitFile(file, attrs);
     }
 }
