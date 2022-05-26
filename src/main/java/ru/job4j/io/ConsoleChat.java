@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ConsoleChat  {
+public class ConsoleChat {
     private static final String OUT = "закончить";
     private static final String STOP = "стоп";
     private static final String CONTINUE = "продолжить";
@@ -76,7 +76,7 @@ public class ConsoleChat  {
         StringBuilder sb = new StringBuilder();
         LocalDateTime sent = LocalDateTime.now();
         final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        sb.append(sent.format(FORMATTER)).append("\s").append(prefix).append(": ").append(str);
+        sb.append(sent.format(FORMATTER)).append(" ").append(prefix).append(": ").append(str);
         list.add(sb.toString());
     }
 
