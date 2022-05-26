@@ -65,7 +65,7 @@ public class ConsoleChat {
     private void saveLog(List<String> log) {
         try (PrintWriter out = new PrintWriter(new FileWriter(path, StandardCharsets.UTF_8), true)) {
             for (String s : log) {
-                out.printf("%s" + System.lineSeparator(), s);
+                out.println(s);
             }
         } catch (IOException e) {
             e.printStackTrace();
