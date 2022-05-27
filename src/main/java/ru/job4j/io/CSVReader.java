@@ -27,7 +27,7 @@ public class CSVReader  {
                 list.add(s);
                 data.add(list);
             }
-            scanner.useDelimiter("(;)|(\r\n)");
+            scanner.useDelimiter("(;)|(\n)|(\r\n)");
             while (scanner.hasNext()) {
                 String value = scanner.next();
                 data.get(index).add(value);
