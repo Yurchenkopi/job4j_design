@@ -35,10 +35,10 @@ public class ConsoleChat {
                 + "\"закончить\" - завершить работу программы;" + sl);
         String question = sc.nextLine();
         formatAdd(log, question, "Q");
-        while (!question.equals(OUT)) {
-            if (question.equals(STOP) && !stop) {
+        while (!OUT.equals(question)) {
+            if (STOP.equals(question) && !stop) {
                 stop = true;
-            } else if (question.equals(CONTINUE) && stop) {
+            } else if (CONTINUE.equals(question) && stop) {
                 stop = false;
             }
             if (!stop) {
