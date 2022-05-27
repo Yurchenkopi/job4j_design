@@ -6,7 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-public class CSVReader {
+public class CSVReader  {
 
     public static void handle(ArgsName argsName) throws IOException {
         validate(argsName);
