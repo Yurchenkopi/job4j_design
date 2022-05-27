@@ -72,7 +72,7 @@ public class CSVReader {
 
     public static void main(String[] args) throws Exception {
         ArgsName par = ArgsName.of(new String[]{"-path=C:\\projects\\job4j_design\\data\\CSVReader\\CSVtest.csv",
-                "-delimiter=;", "-out=stdout", "-filter=Num,Model,Velocity"});
+                "-delimiter=;", "-out=stdout", "-filter=Num,Model,Speed"});
         handle(par);
     }
 }
