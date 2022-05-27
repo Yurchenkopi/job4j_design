@@ -18,7 +18,7 @@ public class CSVReaderTest {
         String data = String.join(
                 System.lineSeparator(),
                 "name;age;last_name;education",
-                "Tom;20;Smith;Bachelor",
+                "Tom;20;Smith",
                 "Jack;25;Johnson;Undergraduate",
                 "William;30;Brown;Secondary special"
         );
