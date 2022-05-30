@@ -1,7 +1,6 @@
 package ru.job4j.io;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -18,8 +17,10 @@ public class CSVReader  {
         String[] filters = argsName.get("filter").split(",");
         int index = 0;
         int size = 0;
+        OutputStream outputStream = "stdout".equals(target)
+                ? System.out : new FileOutputStream(target);
         try (Scanner scanner = new Scanner(Paths.get(source).toFile());
-            PrintWriter pout = new PrintWriter(new FileWriter(target, StandardCharsets.UTF_8), true)) {
+             PrintWriter out = new PrintWriter((outputStream), true)) {
             String[] head = scanner.nextLine().split(delimiter);
             size = head.length;
             for (String s : head) {
@@ -49,11 +50,7 @@ public class CSVReader  {
                 for (int j = 0; j < filters.length; j++) {
                     rsl.add(filteredList.get(j).get(i));
                 }
-                if ("stdout".equals(target)) {
-                    System.out.println(rsl);
-                } else {
-                    pout.println(rsl);
-                }
+                out.println(rsl);
             }
         } catch (IOException e) {
             e.printStackTrace();
