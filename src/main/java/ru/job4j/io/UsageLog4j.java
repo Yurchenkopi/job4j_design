@@ -20,7 +20,10 @@ public class UsageLog4j {
         LOG.debug("User info name : {}, age : {}, height : {}, weight : {}, like eating cakes: {}, with price : {} rub", name, age, height, weight, likeEatingCakes, price);
         LOG.debug("{} constant is {}", p, pi);
         LOG.debug("Distance to mars is {} km", dist);
-
-
+        try {
+            throw new Exception("Not supported code");
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
     }
 }
