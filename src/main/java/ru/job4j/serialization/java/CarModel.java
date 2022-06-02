@@ -1,4 +1,4 @@
-package ru.job4j.serialization.java.java;
+package ru.job4j.serialization.java;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -26,6 +26,18 @@ public class CarModel {
         this.engineVolume = engineVolume;
         this.power = power;
         this.bodywork = bodywork;
+    }
+
+    public float getEngineVolume() {
+        return engineVolume;
+    }
+
+    public int getPower() {
+        return power;
+    }
+
+    public String getBodywork() {
+        return bodywork;
     }
 
     @Override

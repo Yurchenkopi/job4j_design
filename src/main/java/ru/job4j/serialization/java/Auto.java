@@ -1,4 +1,4 @@
-package ru.job4j.serialization.java.java;
+package ru.job4j.serialization.java;
 
 import javax.xml.bind.annotation.*;
 import java.util.Arrays;
@@ -35,7 +35,27 @@ public class Auto {
         this.acceptedDriverLic = acceptedDriverLic;
     }
 
-    @Override
+    public int getNumsOfAccidents() {
+        return numsOfAccidents;
+    }
+
+    public String getRegNum() {
+        return regNum;
+    }
+
+      public boolean isRegLimits() {
+        return regLimits;
+    }
+
+    public CarModel getModel() {
+        return model;
+    }
+
+    public String[] getAcceptedDriverLic() {
+        return acceptedDriverLic;
+    }
+
+     @Override
     public String toString() {
         return "Auto{"
                 + "numsOfAccidents=" + numsOfAccidents
