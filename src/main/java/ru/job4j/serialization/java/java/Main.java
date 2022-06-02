@@ -21,7 +21,7 @@ public class Main {
                                 + "\"power\":77,"
                                 + "\"bodywork\":\"sedan\""
                         + "},"
-                        + "\"acceptedDriversLis\":[\"7733 556644\", \"7744 332211\"]"
+                        + "\"acceptedDriverLic\":[\"7733 556644\", \"7744 332211\"]"
                 + "}";
 
         final Auto vaz2101Mod = gson.fromJson(vaz2101Json, Auto.class);

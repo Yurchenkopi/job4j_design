@@ -7,14 +7,14 @@ public class Auto {
     private final String regNum;
     private final boolean regLimits;
     private final CarModel model;
-    private final String[] acceptedDriversLis;
+    private final String[] acceptedDriverLic;
 
-    public Auto(int numsOfAccidents, String regNum, boolean regLimits, CarModel model, String[] acceptedDriversLis) {
+    public Auto(int numsOfAccidents, String regNum, boolean regLimits, CarModel model, String[] acceptedDriverLic) {
         this.numsOfAccidents = numsOfAccidents;
         this.regNum = regNum;
         this.regLimits = regLimits;
         this.model = model;
-        this.acceptedDriversLis = acceptedDriversLis;
+        this.acceptedDriverLic = acceptedDriverLic;
     }
 
     @Override
@@ -24,7 +24,7 @@ public class Auto {
                 + ", regNum='" + regNum + '\''
                 + ", regLimits=" + regLimits
                 + ", model=" + model
-                + ", acceptedDriversLis=" + Arrays.toString(acceptedDriversLis)
+                + ", acceptedDriversLis=" + Arrays.toString(acceptedDriverLic)
                 + '}';
     }
 }

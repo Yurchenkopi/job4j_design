@@ -1,0 +1,8 @@
+<?xml version="1.1" encoding="UTF-8" ?>
+<auto numsOfAccidents="12" regNum="A777AA777" regLimits="false">
+    <carmodel engineVolume="1.6" power="77" bodywork="sedan"/>
+    <acceptedDriverLiсenses>
+        <acceptedDriverLiсense>7733 556644</acceptedDriverLiсense>
+        <acceptedDriverLiсense>7744 332211</acceptedDriverLiсense>
+    </acceptedDriverLiсenses>
+</auto>
