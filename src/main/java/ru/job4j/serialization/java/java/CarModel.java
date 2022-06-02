@@ -1,9 +1,26 @@
 package ru.job4j.serialization.java.java;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "carmodel")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class CarModel {
-    private final float engineVolume;
-    private final int power;
-    private final String bodywork;
+
+    @XmlAttribute
+    private float engineVolume;
+
+    @XmlAttribute
+    private int power;
+
+    @XmlAttribute
+    private String bodywork;
+
+    public CarModel() {
+
+    }
 
     public CarModel(float engineVolume, int power, String bodywork) {
         this.engineVolume = engineVolume;

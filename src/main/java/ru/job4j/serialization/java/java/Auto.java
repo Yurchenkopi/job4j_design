@@ -1,13 +1,31 @@
 package ru.job4j.serialization.java.java;
 
+import javax.xml.bind.annotation.*;
 import java.util.Arrays;
 
+@XmlRootElement(name = "auto")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Auto {
-    private final int numsOfAccidents;
-    private final String regNum;
-    private final boolean regLimits;
-    private final CarModel model;
-    private final String[] acceptedDriverLic;
+
+    @XmlAttribute
+    private int numsOfAccidents;
+
+    @XmlAttribute
+    private String regNum;
+
+    @XmlAttribute
+    private boolean regLimits;
+
+    @XmlElement(name = "carmodel")
+    private CarModel model;
+
+    @XmlElementWrapper(name = "acceptedDriverLicenses")
+    @XmlElement(name = "acceptedDriverLicense")
+    private String[] acceptedDriverLic;
+
+    public Auto() {
+
+    }
 
     public Auto(int numsOfAccidents, String regNum, boolean regLimits, CarModel model, String[] acceptedDriverLic) {
         this.numsOfAccidents = numsOfAccidents;
