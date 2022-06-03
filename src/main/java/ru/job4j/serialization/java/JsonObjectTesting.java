@@ -6,7 +6,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JsonObjectTesting  {
+public class JsonObjectTesting {
     public static void main(String[] args) {
         final Auto vaz2104 = new Auto(9, "A555AA777", false, new CarModel(1.6f, 77, "sedan"), new String[]{"7733 556644", "7744 332211"});
 
