@@ -2,6 +2,7 @@ package ru.job4j.collection.hash;
 
 import ru.job4j.map.SimpleMap;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,9 @@ public class HashTesting {
         map2.put(23, "Grape");
         map2.put(54, "Orange");
         map2.put(105, "Grape");
+        String s = "=";
+        String[] ar = s.split("=", 2);
+        System.out.println(ar.length);
         for (Integer i : map2.keySet()) {
             System.out.println(i);
         }

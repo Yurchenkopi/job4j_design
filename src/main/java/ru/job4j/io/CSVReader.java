@@ -17,10 +17,10 @@ public class CSVReader  {
         String[] filters = argsName.get("filter").split(",");
         int index = 0;
         int size = 0;
-        OutputStream outputStream = "stdout".equals(target)
-                ? System.out : new FileOutputStream(target);
         try (Scanner scanner = new Scanner(Paths.get(source).toFile());
-             PrintWriter out = new PrintWriter((outputStream), true)) {
+             PrintWriter out = "stdout".equals(target)
+                     ? new PrintWriter(System.out)
+                     : new PrintWriter(new FileWriter(target))) {
             String[] head = scanner.nextLine().split(delimiter);
             size = head.length;
             for (String s : head) {
