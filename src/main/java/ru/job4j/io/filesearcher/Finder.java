@@ -35,12 +35,12 @@ public class Finder {
         String findParameter = argsName.get("t");
         String result = argsName.get("o");
         Predicate<Path> condition = null;
-        if (findParameter.equals("name")) {
+        if ("name".equals(findParameter)) {
             condition = p -> p.toString().contains(fileName);
-        } else if (findParameter.equals("mask")) {
+        } else if ("mask".equals(findParameter)) {
             Pattern pattern = Pattern.compile(maskToRegex(fileName));
             condition = p -> pattern.matcher(p.getFileName().toString()).find();
-        } else if (findParameter.equals("regex")) {
+        } else if ("regex".equals(findParameter)) {
             Pattern pattern = Pattern.compile(fileName);
             condition = p -> pattern.matcher(p.getFileName().toString()).find();
         }
@@ -87,7 +87,7 @@ public class Finder {
     public static void main(String[] args) throws IOException {
         ArgsName par = ArgsName.of(new String[]{
                 "-d=C:\\projects\\job4j_design",
-                "-n=*.?xt",
+                "-n=*.??r",
                 "-t=mask",
                 "-o=C:\\projects\\job4j_design\\data\\Finder\\result.txt"});
         find(par);
