@@ -53,6 +53,8 @@ public class StatementDemo {
                         metaData.getColumnName(i), metaData.getColumnTypeName(i))
                 );
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return buffer.toString();
     }

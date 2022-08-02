@@ -111,11 +111,7 @@ public class TableEditor implements AutoCloseable {
             System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
             /*Удаление таблицы*/
             te.dropTable("new_demo_table");
-            try {
-                System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
-            } catch (PSQLException e) {
-                e.printStackTrace();
-            }
+            System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
         } catch (Exception e) {
             e.printStackTrace();
         }
