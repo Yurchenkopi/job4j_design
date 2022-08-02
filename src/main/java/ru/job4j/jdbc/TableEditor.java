@@ -1,10 +1,11 @@
 package ru.job4j.jdbc;
 
+import org.postgresql.util.PSQLException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
-import java.util.StringJoiner;
 
 public class TableEditor implements AutoCloseable {
 
@@ -22,12 +23,6 @@ public class TableEditor implements AutoCloseable {
     }
 
     private void initConnection() throws ClassNotFoundException, SQLException {
-        ClassLoader loader = StatementDemo.class.getClassLoader();
-        try (InputStream in = loader.getResourceAsStream("jdbc.properties")) {
-            properties.load(in);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         Class.forName(properties.getProperty("hibernate.connection.driver_class"));
         String url = properties.getProperty("hibernate.connection.url");
         String login = properties.getProperty("hibernate.connection.username");
@@ -93,22 +88,36 @@ public class TableEditor implements AutoCloseable {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        TableEditor te = new TableEditor(new Properties());
-        /*Создание таблицы*/
-        te.createTable("new_demo_table");
-        System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
-        /*Добавление столбца*/
-        te.addColumn("new_demo_table", "description", "text");
-        System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
-        /*Переименование столбца*/
-        te.renameColumn("new_demo_table", "description", "remarks");
-        System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
-        /*Удаление столбца*/
-        te.dropColumn("new_demo_table", "remarks");
-        System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
-        /*Удаление таблицы*/
-        te.dropTable("new_demo_table");
-        System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
+    public static void main(String[] args) {
+        Properties properties = new Properties();
+        ClassLoader loader = StatementDemo.class.getClassLoader();
+        try (InputStream in = loader.getResourceAsStream("jdbc.properties")) {
+            properties.load(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try (TableEditor te = new TableEditor(properties)) {
+            /*Создание таблицы*/
+            te.createTable("new_demo_table");
+            System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
+            /*Добавление столбца*/
+            te.addColumn("new_demo_table", "description", "text");
+            System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
+            /*Переименование столбца*/
+            te.renameColumn("new_demo_table", "description", "remarks");
+            System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
+            /*Удаление столбца*/
+            te.dropColumn("new_demo_table", "remarks");
+            System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
+            /*Удаление таблицы*/
+            te.dropTable("new_demo_table");
+            try {
+                System.out.println(StatementDemo.getTableScheme(te.connection, "new_demo_table"));
+            } catch (PSQLException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
