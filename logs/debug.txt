@@ -1,0 +1,6 @@
+2022-07-10 20:38:43,424 DEBUG ru.job4j.io.UsageLog4j:main:20 - User info name : Vasya Vasin, age : 5, height : 173, weight : 88, like eating cakes: true, with price : 1234.232434 rub
+2022-07-10 20:38:43,435 DEBUG ru.job4j.io.UsageLog4j:main:21 - p constant is 3.1415
+2022-07-10 20:38:43,436 DEBUG ru.job4j.io.UsageLog4j:main:22 - Distance to mars is 55760000 km
+2022-07-10 20:38:43,440 ERROR ru.job4j.io.UsageLog4j:main:26 - Not supported code
+java.lang.Exception: Not supported code
+	at ru.job4j.io.UsageLog4j.main(UsageLog4j.java:24)

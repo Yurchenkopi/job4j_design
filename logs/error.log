@@ -1,0 +1,3 @@
+2022-07-10 20:38:43,440 ERROR ru.job4j.io.UsageLog4j:main:26 - Not supported code
+java.lang.Exception: Not supported code
+	at ru.job4j.io.UsageLog4j.main(UsageLog4j.java:24)
