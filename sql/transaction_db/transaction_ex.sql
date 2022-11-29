@@ -1,4 +1,4 @@
--- создаем базу данных
+-- создаем таблицу в базе данных
 create table products (
                           id serial primary key,
                           name varchar(50),
