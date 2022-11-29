@@ -61,3 +61,34 @@ select ROUND(AVG(count * price), 2) from products;
 -- 4. Коммитим изменения транзакции 2, затем транзакции 1 и убеждаемся в работе уровня
 -- изолированности serializable по сообщениям возникающих ошибок
 commit;
+
+---------------------------
+--пример работы с точками сохранения
+---------------------------
+
+-- 1. Начинаем транзакцию
+begin transaction;
+-- 2. Добавляем данные в таблицу и создаем первую точку восстановления
+insert into products (name, producer, count, price) VALUES ('product_20', 'producer_20', 1, 100);
+savepoint first;
+-- 3. Добавляем данные в таблицу и создаем вторую точку восстановления
+insert into products (name, producer, count, price) VALUES ('product_21', 'producer_21', 33, 500),
+                                                           ('product_22', 'producer_22', 11, 400);
+savepoint second;
+-- 4. Увеличиваем количество в три раза для стоимости <=100 и создаем третью точку восстановления
+update products set count = count * 3 where price <= 100;
+savepoint third;
+-- 5. Проверяем итоговую таблицу, удаляем позиции со стоимостью больше 300, откатываемся сначала к третьей, а потом
+-- ко второй точке восстановления, проверяя таблицу. Убеждаемся, что данные восстановлены корректно
+select * from products;
+delete from products where price > 300;
+select * from products;
+rollback to third;
+select * from products;
+rollback to second;
+select * from products;
+-- 6. Убеждаемся, что третья точка восстановления больше недоступна.
+rollback to third;
+-- 7. Откатываемся к первой точке и завершаем транзакцию
+rollback to first;
+commit;
