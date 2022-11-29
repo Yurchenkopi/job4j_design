@@ -80,12 +80,11 @@ create or replace procedure erase_data(limit_count integer, u_id integer)
     language 'plpgsql'
 as $$
 BEGIN
-    if u_id <> 0 THEN
+    if limit_count > 0 AND limit_count < (SELECT sum(count) FROM products) THEN
+        DELETE FROM products;
+    elseif u_id <> 0 THEN
         DELETE FROM products
         WHERE id = u_id;
-    end if;
-    if limit_count > 0 AND limit_count > (SELECT sum(count) FROM products) THEN
-        DELETE FROM products;
     end if;
 END;
 $$;
@@ -107,15 +106,14 @@ $$
 declare
     result integer;
 begin
-    if u_id <> 0 THEN
+    if limit_count > 0 AND limit_count < (SELECT sum(count) FROM products) THEN
+        DELETE FROM products;
+        SELECT INTO result COUNT(*)
+        FROM products;
+    elseif u_id <> 0 THEN
         DELETE FROM products
         WHERE id = u_id;
         SELECT INTO result SUM(price)
-        FROM products;
-    end if;
-    if limit_count > 0 AND limit_count > (SELECT sum(count) FROM products) THEN
-        DELETE FROM products;
-        SELECT INTO result COUNT(*)
         FROM products;
     end if;
     return result;
@@ -126,4 +124,4 @@ $$;
 SELECT f_erase_data(0, 29);
 
 --очистить таблицу, если общее количество продуктов больше 105, и вернуть ноль
-SELECT f_erase_data(105, 29);
+SELECT f_erase_data(105, 4);
