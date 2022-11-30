@@ -92,3 +92,87 @@ rollback to third;
 -- 7. Откатываемся к первой точке и завершаем транзакцию
 rollback to first;
 commit;
+
+---------------------------
+-- Работа с курсорами
+---------------------------
+
+-- удаление предыдущих записей
+delete FROM products;
+
+-- заполнение таблицы данными
+insert into products (name, count, price) VALUES ('product_1', 1, 5);
+insert into products (name, count, price) VALUES ('product_2', 2, 10);
+insert into products (name, count, price) VALUES ('product_3', 3, 15);
+insert into products (name, count, price) VALUES ('product_4', 4, 20);
+insert into products (name, count, price) VALUES ('product_5', 5, 25);
+insert into products (name, count, price) VALUES ('product_6', 6, 30);
+insert into products (name, count, price) VALUES ('product_7', 7, 35);
+insert into products (name, count, price) VALUES ('product_8', 8, 40);
+insert into products (name, count, price) VALUES ('product_9', 9, 45);
+insert into products (name, count, price) VALUES ('product_10', 10, 50);
+insert into products (name, count, price) VALUES ('product_11', 11, 55);
+insert into products (name, count, price) VALUES ('product_12', 12, 60);
+insert into products (name, count, price) VALUES ('product_13', 13, 65);
+insert into products (name, count, price) VALUES ('product_14', 14, 70);
+insert into products (name, count, price) VALUES ('product_15', 15, 75);
+insert into products (name, count, price) VALUES ('product_16', 16, 80);
+insert into products (name, count, price) VALUES ('product_17', 17, 85);
+insert into products (name, count, price) VALUES ('product_18', 18, 90);
+insert into products (name, count, price) VALUES ('product_19', 19, 95);
+insert into products (name, count, price) VALUES ('product_20', 20, 100);
+
+-- начинаем транзакцию и создаем курсор
+BEGIN;
+DECLARE
+    cursor_products cursor for
+    select * from products;
+
+-- извлекаем сразу 10 записей
+FETCH 10 FROM cursor_products;
+-- ещё одну
+FETCH FROM cursor_products;
+-- ещё одну
+FETCH FROM cursor_products;
+-- перемещаем курсор на 2 записи вперёд
+MOVE FORWARD 2 FROM cursor_products;
+-- извлекаем следующую запись
+FETCH NEXT FROM cursor_products;
+-- закрываем курсор и завершаем транзакцию
+CLOSE cursor_products;
+commit;
+
+---------------------------
+--пример обратного прохода по записям таблицы
+---------------------------
+
+-- начинаем транзакцию и создаем курсор
+BEGIN;
+DECLARE
+    cursor_products SCROLL cursor for
+    select * from products;
+
+-- переход на последнюю запись
+FETCH LAST FROM cursor_products;
+
+-- переход на 15ю запись
+MOVE BACKWARD 6 FROM cursor_products;
+-- извлекаем запись
+FETCH FROM cursor_products;
+
+-- переход на 7ю запись
+MOVE BACKWARD 9 FROM cursor_products;
+-- извлекаем запись
+FETCH FROM cursor_products;
+
+-- переход на 2ю запись
+MOVE BACKWARD 6 FROM cursor_products;
+-- извлекаем запись
+FETCH FROM cursor_products;
+
+-- извлекаем 1ю запись
+FETCH BACKWARD FROM cursor_products;
+
+-- закрываем курсор и завершаем транзакцию
+CLOSE cursor_products;
+COMMIT;
