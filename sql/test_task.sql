@@ -60,17 +60,15 @@ WHERE company_id <> 5;
 -- 2. выбрать название компании с максимальным количеством человек + количество человек в этой компании.
 -- Нужно учесть, что таких компаний может быть несколько
 
-SELECT c.name, COUNT(*) Количество
-FROM company c
-JOIN person p ON p.company_id = c.id
-GROUP BY c.name
+SELECT cc.name, COUNT(*) Количество
+FROM company cc
+JOIN person pp ON pp.company_id = cc.id
+GROUP BY cc.name
 HAVING COUNT(*) = (
     SELECT MAX(q_in.num)
     FROM (
-        SELECT c.name, COUNT(*) num
-        FROM company c
-        JOIN person p ON p.company_id = c.id
-        GROUP BY c.name
+        SELECT p.company_id, COUNT(*) num
+        FROM person p
+        GROUP BY p.company_id
         ) q_in
-    GROUP BY c.name
     );
