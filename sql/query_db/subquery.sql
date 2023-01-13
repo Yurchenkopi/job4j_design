@@ -58,3 +58,10 @@ WHERE (first_name, last_name, age, country) NOT IN
           GROUP BY first_name, last_name, age, country
           )
 ORDER BY first_name, last_name, age, country ASC;
+--вариант 3
+SELECT first_name, last_name, age, country
+FROM customers c
+WHERE c.id NOT IN (
+    SELECT o.customer_id
+    FROM orders o
+    );
