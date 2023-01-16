@@ -40,6 +40,7 @@ FROM movie;
 
 --все уникальные названия произведений из таблиц movie и book
 -- (т.е фильмы, которые сняты не по книге, и книги без экранизации)
+--вариант 1
 WITH unique_books(title)
     AS
     (
@@ -63,3 +64,15 @@ FROM unique_books
 UNION
 SELECT name
 FROM unique_movies;
+
+--вариант 2
+SELECT q_in.title
+FROM (
+         SELECT title
+         FROM book
+         UNION ALL
+         SELECT name
+         FROM movie
+     ) q_in
+GROUP BY 1
+HAVING COUNT(*) = 1;
