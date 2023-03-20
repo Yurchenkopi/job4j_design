@@ -22,9 +22,4 @@ public class User {
                 + "name='" + name + '\''
                 + '}';
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
-    }
 }

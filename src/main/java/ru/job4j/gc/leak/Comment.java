@@ -10,19 +10,11 @@ public class Comment {
         this.text = text;
         this.user = user;
     }
-
-    /*getter/setter*/
-
     @Override
     public String toString() {
         return "Comment{"
                 + "text='" + text + '\''
                 + ", user=" + user
                 + '}';
-    }
-
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
     }
 }

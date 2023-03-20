@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.StringJoiner;
 
 public class CommentGenerator implements Generate {
 
@@ -11,8 +12,8 @@ public class CommentGenerator implements Generate {
 
     public static final String SEPARATOR = System.lineSeparator();
     private static List<Comment> comments = new ArrayList<>();
-    public static final Integer COUNT = 50;
-    private static List<String> phrases;
+    public static final int COUNT = 50;
+    private List<String> phrases;
     private UserGenerator userGenerator;
     private Random random;
 
@@ -37,11 +38,13 @@ public class CommentGenerator implements Generate {
     @Override
     public void generate() {
         comments.clear();
+        int phrasesSize = phrases.size();
         for (int i = 0; i < COUNT; i++) {
-            String comment = String.format("%s%s%s%s%s",
-                    phrases.get(random.nextInt(phrases.size())), SEPARATOR,
-                    phrases.get(random.nextInt(phrases.size())), SEPARATOR,
-                    phrases.get(random.nextInt(phrases.size())));
+            StringJoiner sj = new StringJoiner(SEPARATOR);
+            String comment = sj.add(phrases.get(random.nextInt(phrasesSize)))
+                    .add(phrases.get(random.nextInt(phrasesSize)))
+                    .add(phrases.get(random.nextInt(phrasesSize)))
+                    .toString();
             comments.add(new Comment(comment,
                     userGenerator.randomUser()));
         }
