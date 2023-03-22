@@ -14,7 +14,7 @@ public class Search {
         search(start, p -> p.toString().endsWith(args[1])).forEach(System.out::println);
     }
 
-    private static void validate(String[] args) {
+    public static void validate(String[] args) {
         if (args.length < 2) {
             throw new IllegalArgumentException("Root folder and/or Searching parameter are null. Usage java -jar search.jar ROOT_FOLDER, SEARCHING_PARAMETER");
         }
