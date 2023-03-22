@@ -18,6 +18,16 @@ public abstract class AbstractCache<K, V> {
         return cache.get(key).get();
     }
 
+    public final void printCache() {
+        for (K k : cache.keySet()) {
+            System.out.printf(
+                    "%s ---> %s" + System.lineSeparator(),
+                    k,
+                    cache.get(k).get()
+            );
+        }
+    }
+
     protected abstract V load(K key) throws IOException;
 
 }
