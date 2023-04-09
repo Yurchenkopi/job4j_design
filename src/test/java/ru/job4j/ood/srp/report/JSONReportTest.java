@@ -17,7 +17,7 @@ import java.util.StringJoiner;
 
 import static org.assertj.core.api.Assertions.*;
 
-class JSONReportTest {
+class JSONReportTest  {
 
     @Test
     public void whenOldGenerated(@TempDir Path tempDir) throws IOException {

@@ -19,7 +19,7 @@ import java.util.StringJoiner;
 
 import static org.assertj.core.api.Assertions.*;
 
-class XMLReportTest {
+class XMLReportTest  {
 
     @Test
     public void whenOldGenerated(@TempDir Path tempDir) throws IOException, JAXBException {

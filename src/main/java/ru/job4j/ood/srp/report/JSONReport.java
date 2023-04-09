@@ -16,7 +16,7 @@ public class JSONReport implements Report {
     private final String targetFileName;
     private final Gson exportToJson;
 
-    public JSONReport(Store store, String targetFileName, Gson exportToJson) {
+    public JSONReport(Store store, String targetFileName, Gson exportToJson)  {
         this.store = store;
         this.targetFileName = targetFileName;
         this.exportToJson = exportToJson;

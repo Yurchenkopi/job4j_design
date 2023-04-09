@@ -19,7 +19,7 @@ public class Employee {
     @XmlAttribute
     private double salary;
 
-    public Employee() {
+    public Employee()  {
 
     }
 

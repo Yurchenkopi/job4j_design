@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import java.util.StringJoiner;
 import java.util.function.Predicate;
 
-public class XMLReport implements Report {
+public class XMLReport implements Report  {
 
     private final Store store;
     private final String targetFileName;
