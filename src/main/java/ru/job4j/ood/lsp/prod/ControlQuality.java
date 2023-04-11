@@ -1,16 +1,21 @@
 package ru.job4j.ood.lsp.prod;
 
+import java.util.List;
+
 public class ControlQuality {
 
-    private AbstractStore move(Food food) {
-        return null;
+    private void moveAll(AbstractStore<Food> origStore, AbstractStore<Food> distStore) {
+        List<Food> data = origStore.findAll();
+        for (Food f : data) {
+            distStore.add(f);
+        }
     }
 
-    private boolean remove(Food food) {
-        return false;
+    private void move(AbstractStore<Food> origStore, Food food) {
+        origStore.add(food);
     }
 
-    private int discount(Food food) {
-        return 0;
+    private boolean remove(AbstractStore<Food> origStore, Food food) {
+        return origStore.remove(food);
     }
 }

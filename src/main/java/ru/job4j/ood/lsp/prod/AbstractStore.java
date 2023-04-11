@@ -3,7 +3,7 @@ package ru.job4j.ood.lsp.prod;
 import java.util.List;
 import java.util.function.Predicate;
 
-public abstract class AbstractStore implements Store<Food> {
+public abstract class AbstractStore<Food> implements Store<Food> {
     private String name;
     private List<Food> store;
 
@@ -17,9 +17,26 @@ public abstract class AbstractStore implements Store<Food> {
     }
 
     @Override
+    public void addAll(List<Food> products) {
+        for (Food f : products) {
+            store.add(f);
+        }
+    }
+
+    @Override
     public List<Food> findBy(Predicate<Food> condition) {
         return store.stream()
                 .filter(condition)
                 .toList();
+    }
+
+    @Override
+    public List<Food> findAll() {
+        return store;
+    }
+
+    @Override
+    public boolean remove(Food product) {
+        return store.remove(product);
     }
 }
