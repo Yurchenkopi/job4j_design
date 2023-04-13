@@ -2,6 +2,7 @@ package ru.job4j.ood.lsp.prod;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Food {
 
@@ -68,5 +69,22 @@ public class Food {
                 + ", price=" + price
                 + ", discount=" + discount
                 + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Food food = (Food) o;
+        return Objects.equals(name, food.name) && Objects.equals(expiryDate, food.expiryDate) && Objects.equals(createDate, food.createDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, expiryDate, createDate);
     }
 }

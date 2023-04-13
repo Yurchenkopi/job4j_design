@@ -1,21 +1,30 @@
 package ru.job4j.ood.lsp.prod;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class ControlQuality {
 
-    private AbstractStore<Food> warehouse = new Warehouse("basicwarehouse", 1_000_000);
-    private AbstractStore<Food> shop = new Shop("megashop", "supermarket");
-    private AbstractStore<Food> trash = new Trash("megatrash");
+    private final AbstractStore<Food> warehouse = new Warehouse("basicwarehouse", 1_000_000);
+    private final AbstractStore<Food> shop = new Shop("megashop", "supermarket");
+    private final AbstractStore<Food> trash = new Trash("megatrash");
 
-    private void moveAll(AbstractStore<Food> origStore, AbstractStore<Food> distStore) {
-        List<Food> data = origStore.findAll();
-        for (Food f : data) {
-            distStore.add(f);
-            origStore.remove(f);
+    public AbstractStore<Food> getWarehouse() {
+        return warehouse;
+    }
+
+    public AbstractStore<Food> getShop() {
+        return shop;
+    }
+
+    public AbstractStore<Food> getTrash() {
+        return trash;
+    }
+
+    public void filterAll(List<Food> products) {
+        for (Food f : products) {
+            filter(f);
         }
     }
 
@@ -34,9 +43,42 @@ public class ControlQuality {
     }
 
     public int expirationDefine(Food food) {
-        return (int) ((
+        return 100 - (int) ((
                 (double) Math.round(ChronoUnit.DAYS.between(food.getCreateDate(), LocalDate.now()))
-                / (double) Math.round(ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpiryDate()))
+                        / (double) Math.round(ChronoUnit.DAYS.between(food.getCreateDate(), food.getExpiryDate()))
         ) * 100.0);
+    }
+
+    public static void main(String[] args) {
+        List<Food> data = List.of(
+                new Food(
+                        "apples",
+                        LocalDate.now().minus(5, ChronoUnit.DAYS),
+                        LocalDate.now().plus(5, ChronoUnit.DAYS),
+                        100,
+                        0),
+                new Food(
+                        "lemon",
+                        LocalDate.now().minus(7, ChronoUnit.DAYS),
+                        LocalDate.now().plus(3, ChronoUnit.DAYS),
+                        50,
+                        0),
+                new Food(
+                        "orange",
+                        LocalDate.now().minus(6, ChronoUnit.DAYS),
+                        LocalDate.now().plus(4, ChronoUnit.DAYS),
+                        50,
+                        0),
+                new Food(
+                        "banana",
+                        LocalDate.now().minus(6, ChronoUnit.DAYS),
+                        LocalDate.now().plus(4, ChronoUnit.DAYS),
+                        50,
+                        0)
+        );
+        ControlQuality cq = new ControlQuality();
+        cq.filterAll(data);
+        System.out.println(cq.getShop());
+
     }
 }

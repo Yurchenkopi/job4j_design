@@ -1,11 +1,12 @@
 package ru.job4j.ood.lsp.prod;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
 public abstract class AbstractStore<Food> implements Store<Food> {
-    private String name;
-    private List<Food> store;
+    private final String name;
+    private final List<Food> store = new ArrayList<>();
 
     public AbstractStore(String name) {
         this.name = name;
