@@ -19,8 +19,7 @@ class ControlQualityTest {
                 100,
                 0);
         int expected = 0;
-        ControlQuality cq = new ControlQuality();
-        assertThat(cq.expirationDefine(apples)).isEqualTo(expected);
+        assertThat(apples.expirationDefine()).isEqualTo(expected);
     }
 
     @Test
@@ -32,8 +31,7 @@ class ControlQualityTest {
                 100,
                 0);
         int expected = 100;
-        ControlQuality cq = new ControlQuality();
-        assertThat(cq.expirationDefine(apples)).isEqualTo(expected);
+        assertThat(apples.expirationDefine()).isEqualTo(expected);
     }
 
     @Test
@@ -45,8 +43,7 @@ class ControlQualityTest {
                 100,
                 0);
         int expected = 50;
-        ControlQuality cq = new ControlQuality();
-        assertThat(cq.expirationDefine(apples)).isEqualTo(expected);
+        assertThat(apples.expirationDefine()).isEqualTo(expected);
     }
 
     @Test

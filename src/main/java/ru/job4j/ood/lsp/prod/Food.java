@@ -2,6 +2,7 @@ package ru.job4j.ood.lsp.prod;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 public class Food {
@@ -86,5 +87,12 @@ public class Food {
     @Override
     public int hashCode() {
         return Objects.hash(name, expiryDate, createDate);
+    }
+
+    public int expirationDefine() {
+        return 100 - (int) ((
+                (double) Math.round(ChronoUnit.DAYS.between(createDate, LocalDate.now()))
+                        / (double) Math.round(ChronoUnit.DAYS.between(createDate, expiryDate))
+        ) * 100.0);
     }
 }

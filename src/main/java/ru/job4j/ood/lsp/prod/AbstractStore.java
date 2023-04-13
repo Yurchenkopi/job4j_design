@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 public abstract class AbstractStore<Food> implements Store<Food> {
     private final String name;
-    private final List<Food> store = new ArrayList<>();
+    protected final List<Food> store = new ArrayList<>();
 
     public AbstractStore(String name) {
         this.name = name;
