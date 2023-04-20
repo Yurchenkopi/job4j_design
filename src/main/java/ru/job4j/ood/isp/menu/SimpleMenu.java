@@ -14,11 +14,7 @@ public class SimpleMenu implements Menu {
         if (itInfo.isEmpty()) {
             rsl = false;
         } else {
-            itInfo.get().menuItem.getChildren().add((MenuItem) new MenuItemInfo(
-                    childName,
-                    new ArrayList<>(),
-                    actionDelegate,
-                    ""));
+            itInfo.get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
         }
         return rsl;
     }
@@ -136,6 +132,23 @@ public class SimpleMenu implements Menu {
         public ItemInfo(MenuItem menuItem, String number) {
             this.menuItem = menuItem;
             this.number = number;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            ItemInfo itemInfo = (ItemInfo) o;
+            return Objects.equals(menuItem, itemInfo.menuItem) && Objects.equals(number, itemInfo.number);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(menuItem, number);
         }
     }
 
