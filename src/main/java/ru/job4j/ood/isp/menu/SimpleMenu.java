@@ -1,7 +1,6 @@
 package ru.job4j.ood.isp.menu;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class SimpleMenu implements Menu {
 
@@ -12,9 +11,11 @@ public class SimpleMenu implements Menu {
         Optional<ItemInfo> itInfo = findItem(parentName);
         boolean rsl = true;
         if (itInfo.isEmpty()) {
-            rsl = false;
-        } else {
+            rootElements.add(new SimpleMenuItem(childName, actionDelegate));
+        } else if (parentName.equals(itInfo.get().menuItem.getName())) {
             itInfo.get().menuItem.getChildren().add(new SimpleMenuItem(childName, actionDelegate));
+        } else {
+            rsl = false;
         }
         return rsl;
     }
@@ -22,7 +23,7 @@ public class SimpleMenu implements Menu {
     @Override
     public Optional<MenuItemInfo> select(String itemName) {
         Optional<ItemInfo> itInfo = findItem(itemName);
-        Optional<MenuItemInfo> rsl = Optional.empty();
+        Optional<MenuItemInfo> rsl;
         if (itInfo.isPresent()) {
             rsl = Optional.of(new MenuItemInfo(itInfo.get().menuItem, itInfo.get().number));
         } else {
@@ -42,7 +43,8 @@ public class SimpleMenu implements Menu {
 
             @Override
             public MenuItemInfo next() {
-                return new MenuItemInfo(it.next().menuItem, it.next().number);
+                ItemInfo tempInfo = it.next();
+                return new MenuItemInfo(tempInfo.menuItem, tempInfo.number);
             }
         };
     }
@@ -50,7 +52,7 @@ public class SimpleMenu implements Menu {
     private Optional<ItemInfo> findItem(String name) {
         Optional<ItemInfo> rsl = Optional.empty();
         Iterator<ItemInfo> it = new DFSIterator();
-        while (it.hasNext()) {
+        while (name != null && it.hasNext()) {
             ItemInfo temp = it.next();
             if (name.equals(temp.menuItem.getName())) {
                 rsl = Optional.of(temp);
@@ -132,23 +134,6 @@ public class SimpleMenu implements Menu {
         public ItemInfo(MenuItem menuItem, String number) {
             this.menuItem = menuItem;
             this.number = number;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) {
-                return true;
-            }
-            if (o == null || getClass() != o.getClass()) {
-                return false;
-            }
-            ItemInfo itemInfo = (ItemInfo) o;
-            return Objects.equals(menuItem, itemInfo.menuItem) && Objects.equals(number, itemInfo.number);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(menuItem, number);
         }
     }
 
