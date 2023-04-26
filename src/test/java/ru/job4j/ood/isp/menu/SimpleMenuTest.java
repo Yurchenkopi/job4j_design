@@ -25,6 +25,12 @@ public class SimpleMenuTest {
                 "Купить продукты",
                 List.of("Купить хлеб", "Купить молоко"), STUB_ACTION, "1.1."))
                 .isEqualTo(menu.select("Купить продукты").get());
+        assertThat(menu.select("Купить хлеб").get())
+                .isEqualTo(new Menu.MenuItemInfo("Купить хлеб",
+                        List.of(), STUB_ACTION, "1.1.1."));
+        assertThat(menu.select("Купить молоко").get())
+                .isEqualTo(new Menu.MenuItemInfo("Купить молоко",
+                        List.of(), STUB_ACTION, "1.1.2."));
        assertThat(new Menu.MenuItemInfo(
                "Покормить собаку", List.of(), STUB_ACTION, "2."))
                .isEqualTo(menu.select("Покормить собаку").get());
