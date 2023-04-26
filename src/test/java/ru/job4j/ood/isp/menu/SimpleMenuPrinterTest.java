@@ -12,7 +12,7 @@ public class SimpleMenuPrinterTest {
     public static final ActionDelegate STUB_ACTION = null;
 
     @Test
-    public void whenTestPrint() {
+    public void whenTestPrint()  {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         System.setOut(new PrintStream(out));
         Menu menu = new SimpleMenu();

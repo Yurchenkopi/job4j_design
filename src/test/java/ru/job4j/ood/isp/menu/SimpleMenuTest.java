@@ -11,7 +11,7 @@ public class SimpleMenuTest {
     public static final ActionDelegate STUB_ACTION = System.out::println;
 
     @Test
-    public void whenAddThenReturnSame() {
+    public void whenAddThenReturnSame()  {
         Menu menu = new SimpleMenu();
         menu.add(Menu.ROOT, "Сходить в магазин", STUB_ACTION);
         menu.add(Menu.ROOT, "Покормить собаку", STUB_ACTION);
