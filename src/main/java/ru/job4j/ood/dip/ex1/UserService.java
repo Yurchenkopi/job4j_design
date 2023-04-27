@@ -1,6 +1,6 @@
 package ru.job4j.ood.dip.ex1;
 
-public class UserService {
+public class UserService  {
 /*
     private UserRepository userRepository = new MySqlUserRepository();
 
