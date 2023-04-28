@@ -12,10 +12,10 @@ public class Shop extends AbstractStore<Food>  {
     public void add(Food food) {
         int expirationPercentage = food.expirationDefine();
         if (expirationPercentage >= 25 && expirationPercentage < 75) {
-            super.store.add(food);
+            super.findAll().add(food);
         } else if (expirationPercentage >= 75 && expirationPercentage < 100) {
             food.setPrice(food.getPrice() * (1 -  food.getDiscount() / 100));
-            super.store.add(food);
+            super.findAll().add(food);
         }
     }
 }

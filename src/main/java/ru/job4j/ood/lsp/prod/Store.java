@@ -14,4 +14,6 @@ public interface Store<T>  {
     List<T> findAll();
 
     boolean remove(T product);
+
+    void removeAll();
 }

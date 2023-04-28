@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 public abstract class AbstractStore<Food> implements Store<Food> {
     private final String name;
-    protected final List<Food> store = new ArrayList<>();
+    private List<Food> store = new ArrayList<>();
 
     public AbstractStore(String name) {
         this.name = name;
@@ -39,5 +39,10 @@ public abstract class AbstractStore<Food> implements Store<Food> {
     @Override
     public boolean remove(Food product) {
         return store.remove(product);
+    }
+
+    @Override
+    public void removeAll() {
+        store = new ArrayList<>();
     }
 }

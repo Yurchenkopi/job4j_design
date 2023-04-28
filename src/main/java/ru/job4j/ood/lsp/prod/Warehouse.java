@@ -11,7 +11,7 @@ public class Warehouse extends AbstractStore<Food>  {
     @Override
     public void add(Food food) {
         if (food.expirationDefine() < 25) {
-            super.store.add(food);
+            super.findAll().add(food);
         }
     }
 }
