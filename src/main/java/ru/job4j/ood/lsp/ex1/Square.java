@@ -9,10 +9,15 @@ public class Square extends Rectangle {
 
     /*
     Изменение предусловий в подклассе
+    Без переопределения сеттера setWeight(), где мы одновременно обновляем ширину с высотой,
+    при создании квадрата и повторном присваивании новой ширины будет создан прямоугольник.
+    Такое поведение является следствием усиления предусловий в подклассе Square
      */
 
     public static void main(String[] args) {
-        Rectangle rectangle = new Square();
-        rectangle.setHeight(5);
+        Rectangle square = new Square();
+        square.setHeight(5);
+        square.setWidth(7);
+        System.out.println(square.getWidth() + " ; " + square.getHeight());
     }
 }
