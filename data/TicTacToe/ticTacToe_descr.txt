@@ -1,0 +1,48 @@
+enum Figure {X, O} - игровые объекты
+
+Player - класс, описываюший игрока. Поля класса:
+							- имя игрока ________________________________________________ String playerName;
+							- тип игровых фигур (крестики или нолики) ___________________ Figure figureType;
+
+Field - игровое поле. Поля класса:
+							- размер поля _________________________________________________ int final size;
+							- структура, хранящая информацию о занятых
+							  ячейках игроками ____________________________________________ Player[][] newTicTacToe = new Player[size][size];
+
+TicTacToeEngine - класс с логикой игры.
+
+Скелет программы:
+	Player player1 = initPlayer(Figure.X);
+	Player player2 = initPlayer(Figure.O);
+	Field field = initField(size);
+	if(gameValidate(player1, player2, field)) {
+		TicTacToe newGame = initGame(player1, player2, field);
+		while(!winnerDefine(field) ||  !finishGameDefine(field)) {
+			if (field.moveValidate(int x, int y)) {
+				field.move(int x, int y);
+			}
+		}
+	}
+
+
+PlayMover - интерфейс, отвечающий за ход в игре.
+      					- cделать ход ________________________________________________________ Field move(int x, int y);
+
+FieldValidator - определить правильность хода игрока
+								- ячейка находится в сетке поля,
+								- ячейка ещё не занята _______________________________________ boolean moveValidate(int x, int y);
+
+GameInitializer - интерфейс для инициализации игры.
+						- инициализация игрового поля ________________________________________ Field initField(int size);
+						- инициализация игроков, т.е. кто играет
+						  крестиками, а кто - ноликами _______________________________________ Player initPlayer(Figure figureType);
+						- инициализация новой игры ___________________________________________ TicTacToe initGame(Player player1, Player player2, Figure);
+
+GameValidator   - интерфейс, проверяющий правильность параметров для создания новой игры.
+				  			- Один игрок ходит крестиками, а второй - ноликами,
+					          т.е. разные игроки не ходят одними и теме же figureType
+						    - Игровое поле меньше, чем допустимое значение ___________________ boolean gameValidate(Player player1, Player player2, Figure);
+
+LogikGameValidator - интерфейс, определяющий, логику в игре.
+						- игровое поле занято и допустимых ходов нет _________________________ boolean finishGameDefine(Field field);
+						- заняты ли горизонтали, вертикали или диагонали _____________________ boolean winnerDefine(Field field);
