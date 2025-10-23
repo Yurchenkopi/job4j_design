@@ -26,6 +26,7 @@ public class LongestUniqueSubstring {
         for (int i = 0; i < str.length(); i++) {
 
         }
+        return "";
     }
 
     public static String grabUniqueString(String str) {
