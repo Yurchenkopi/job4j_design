@@ -3,33 +3,27 @@ package ru.job4j.algo;
 import java.util.Arrays;
 
 public class SmallestRangeFinder {
-    /** Добавьте поля класса здесь, если это необходимо */
-
     public static int[] findSmallestRange(int[] nums, int k) {
+        boolean found = false;
         int[] result = new int[2];
         if (k == 1) {
-            return result;
+            found = true;
         }
-        int pointer;
-        boolean found = false;
-        for (int i = 0; i < nums.length - k; i++) {
-            pointer = i;
-            for (int j = pointer; j < pointer + k; j++) {
-                if ((nums[j + 1] - nums[j]) == 0) {
+        int pointer = 0;
+        while (!found && pointer <= nums.length - k) {
+            for (int j = pointer; j < pointer + k - 1; j++) {
+                if (nums[j + 1] - nums[j] == 0) {
+                    pointer = j + 1;
                     break;
                 }
-            }
-            result[0] = pointer;
-            result[1] = pointer + k;
-            found = true;
-            if (found) {
-                break;
+                if (j == pointer + k - 2) {
+                    result[0] = pointer;
+                    result[1] = pointer + k - 1;
+                    found = true;
+                }
             }
         }
-        if (!found) {
-            result = null;
-        }
-        return result;
+        return found ? result : null;
     }
 
     public static void main(String[] args) {
