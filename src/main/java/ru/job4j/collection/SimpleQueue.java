@@ -29,4 +29,9 @@ public class SimpleQueue<T> implements Queue<T> {
         in.push(value);
         sizeIn++;
     }
+
+    @Override
+    public boolean isEmpty() {
+        return sizeIn == 0 && sizeOut == 0;
+    }
 }

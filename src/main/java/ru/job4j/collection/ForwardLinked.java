@@ -50,6 +50,10 @@ public class ForwardLinked<T> implements Iterable<T> {
         head = new Node<T>(value, head);
     }
 
+    public boolean isEmpty() {
+        return head == null;
+    }
+
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
