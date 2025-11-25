@@ -64,8 +64,49 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public boolean remove(T key) {
-        /* Метод будет реализован в следующих уроках */
-        return false;
+        boolean result = false;
+        if (Objects.nonNull(key) && Objects.nonNull(root)) {
+            result = remove(root, key);
+        }
+        return result;
+    }
+
+    public boolean remove(Node source, T key) {
+        boolean result = true;
+        Node current = source;
+        Node parent = source;
+        boolean isLeft = true;
+        while (result && !Objects.equals(current.key, key)) {
+            parent = current;
+            int cmp = key.compareTo(current.key);
+            if (cmp < 0) {
+                isLeft = true;
+                current = current.left;
+            } else if (cmp > 0) {
+                isLeft = false;
+                current = current.right;
+            }
+            if (Objects.isNull(current)) {
+                result = false;
+            }
+        }
+        if (result) {
+            if (Objects.isNull(current.left) && Objects.isNull(current.right)) {
+                swap(isLeft, source, parent, current, null);
+            } else if (Objects.nonNull(current.left) && Objects.isNull(current.right)) {
+                swap(isLeft, source, parent, current, current.left);
+            } else if (Objects.isNull(current.left)) {
+                swap(isLeft, source, parent, current, current.right);
+            } else {
+                Node heir = getHeir(current);
+                swap(isLeft, source, parent, current, heir);
+                heir.left = current.left;
+            }
+            current.key = null;
+            current.left = null;
+            current.right = null;
+        }
+        return result;
     }
 
     public List<T> inSymmetricalOrder() {
@@ -137,6 +178,32 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return rsl;
     }
 
+    private void swap(boolean isLeft, Node source, Node parent, Node current, Node equal) {
+        if (Objects.equals(current, source)) {
+            root = equal;
+        } else if (isLeft) {
+            parent.left = equal;
+        } else {
+            parent.right = equal;
+        }
+    }
+
+    private Node getHeir(Node delNode) {
+        Node nodeParent = delNode;
+        Node node = delNode;
+        Node current = delNode.right;
+        while (current != null) {
+            nodeParent = node;
+            node = current;
+            current = current.left;
+        }
+        if (node != delNode.right) {
+            nodeParent.left = node.right;
+            node.right = delNode.right;
+        }
+        return node;
+    }
+
     @Override
     public String toString() {
         return PrintTree.getTreeDisplay(root);
@@ -178,12 +245,14 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
     public static void main(String[] args) {
         BinarySearchTree<Integer> tree = new BinarySearchTree<>();
-        for (int element : new int[]{4, 2, 6, 3, 5, 7, 1}) {
+        for (int element : new int[]{2, 1, 10, 6, 14, 4, 8, 12, 16, 11, 9, 13, 15, 17, 3, 5, 7}) {
             tree.put(element);
         }
         System.out.printf("Tree view: \n%s\n",  tree);
         System.out.printf("When findByKey=2: %s\n", tree.find(tree.root, 2));
         System.out.printf("PreOrder treeElements: %s\n", tree.inPreOrder());
         System.out.printf("PostOrder treeElements: %s\n", tree.inPostOrder());
+        tree.remove(tree.root, 10);
+        System.out.printf("After remove \"10\": \n%s", tree);
     }
 }
