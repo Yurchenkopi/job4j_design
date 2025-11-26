@@ -109,6 +109,21 @@ public class BinarySearchTree<T extends Comparable<T>> {
         return result;
     }
 
+    public void clear() {
+        Node node = root;
+        clear(node);
+    }
+
+    private void clear(Node first) {
+        if (first != null) {
+            clear(first.left);
+            clear(first.right);
+            first.key = null;
+            first.left = null;
+            first.right = null;
+        }
+    }
+
     public List<T> inSymmetricalOrder() {
         List<T> result = new ArrayList<>();
         Node node = root;

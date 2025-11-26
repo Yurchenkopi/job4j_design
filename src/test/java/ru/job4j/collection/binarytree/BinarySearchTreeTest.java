@@ -151,4 +151,23 @@ class BinarySearchTreeTest {
         assertThat(tree.remove(10)).isFalse();
     }
 
+    @Test
+    void whenClearTreeThenAllNodesBecomeNullExceptRoot() {
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+        for (int element : new int[]{2, 1, 10, 6, 14, 4, 8, 12, 16, 11, 9, 13, 15, 3, 5, 7, 17}) {
+            tree.put(element);
+        }
+        tree.clear();
+        assertThat(tree.inSymmetricalOrder())
+                .hasSize(1)
+                .last().isNull();
+    }
+
+    @Test
+    void whenClearEmptyTreeThenTraversalIsEmpty() {
+        BinarySearchTree<Integer> empty = new BinarySearchTree<>();
+        assertThat(empty.inSymmetricalOrder()).isEmpty();
+        empty.clear();
+        assertThat(empty.inSymmetricalOrder()).isEmpty();
+    }
 }
