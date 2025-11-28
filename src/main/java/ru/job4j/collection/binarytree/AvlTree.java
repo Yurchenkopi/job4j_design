@@ -34,7 +34,8 @@ public class AvlTree<T extends Comparable<T>> {
         boolean result = false;
         if (Objects.isNull(root)) {
             root = new Node(value);
-        } else if (Objects.nonNull(value) && !contains(value)) {
+        }
+        if (Objects.nonNull(value) && !contains(value)) {
             root = insert(root, value);
             result = true;
         }
@@ -131,13 +132,21 @@ public class AvlTree<T extends Comparable<T>> {
     }
 
     private Node leftRotation(Node node) {
-        //TODO реализуйте метод
-        return null;
+        Node newParent = node.right;
+        node.right = newParent.left;
+        newParent.left = node;
+        updateHeight(node);
+        updateHeight(newParent);
+        return newParent;
     }
 
     private Node rightRotation(Node node) {
-        //TODO реализуйте метод
-        return null;
+        Node newParent = node.left;
+        node.left = newParent.right;
+        newParent.right = node;
+        updateHeight(node);
+        updateHeight(newParent);
+        return newParent;
     }
 
     public List<T> inSymmetricalOrder() {
